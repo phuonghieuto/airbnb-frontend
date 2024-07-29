@@ -152,7 +152,7 @@ export class CategoryService {
     return this.categories;
   }
 
-  getCategoriesByDefault() {
+  getCategoryByDefault() {
     return this.categories[0];
   }
 
