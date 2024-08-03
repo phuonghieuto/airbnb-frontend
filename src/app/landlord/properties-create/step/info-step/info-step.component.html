@@ -1,1 +1,20 @@
-<p>info-step works!</p>
+<app-info-step-control
+  (valueChange) = "onInfoChange($event, 'GUESTS')"
+  [title] = "'Guests'"
+  [value] = "infos().guests.value">
+</app-info-step-control>
+<app-info-step-control
+  (valueChange) = "onInfoChange($event, 'BEDROOMS')"
+  [title] = "'Bedrooms'"
+  [value] = "infos().bedrooms.value">
+</app-info-step-control>
+<app-info-step-control
+  (valueChange) = "onInfoChange($event, 'BEDS')"
+  [title] = "'Beds'"
+  [value] = "infos().beds.value">
+</app-info-step-control>
+<app-info-step-control
+  (valueChange) = "onInfoChange($event, 'BATHS')"
+  [title] = "'Bathrooms'"
+  [value] = "infos().baths.value">
+</app-info-step-control>

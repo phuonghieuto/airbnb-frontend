@@ -1,1 +1,46 @@
-<p>description-step works!</p>
+<div class = "mb-3">
+  <h1 class = "mb-1">Now, let's give your house a title and description</h1>
+  <h2 class = "mt-0">Short titles work best. Have fun with it you can change it anytime</h2>
+
+  <form
+    #formDescription = "ngForm"
+    class = "w-full"
+    novalidate>
+    <input
+      #titleInput = "ngModel"
+      (ngModelChange) = "onTitleChange($event)"
+      [ngModel] = "description().title.value"
+      class = "w-full p-input text-lg"
+      name = "title"
+      pInputText
+      placeholder = "Title"
+      required
+      type = "text" />
+    @if (titleInput.dirty && titleInput.invalid) {
+      <small
+        id = "title-required"
+        class = "text-primary">Title is required</small>
+    } @else {
+      <div class = "placeholder-validation"></div>
+    }
+
+    <textarea
+      #descriptionInput = "ngModel"
+      (ngModelChange) = "onDescriptionChange($event)"
+      [ngModel] = "description().description.value"
+      class = "w-full mt-2"
+      cols = "30"
+      name = "description"
+      pInputTextarea
+      placeholder = "Summary"
+      required
+      rows = "5"></textarea>
+    @if (descriptionInput.dirty && descriptionInput.invalid) {
+      <small
+        id = "description-required"
+        class = "text-primary">Description is required</small>
+    } @else {
+      <div class = "placeholder-validation"></div>
+    }
+  </form>
+</div>
