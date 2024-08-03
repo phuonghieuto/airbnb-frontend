@@ -2,11 +2,12 @@
 
 .categories {
   -ms-overflow-style: none;
-  scrollbar-width: none;
+  scrollbar-width: thin;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;
   overflow-x: scroll;
+  overflow-y: scroll;
   gap: 30px;
   background-color: $white;
   .category {

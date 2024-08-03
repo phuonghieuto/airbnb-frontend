@@ -4,13 +4,11 @@
       src = "{{imageUrl()}}"
       alt = "user-avatar"
       class = "border-round-3xl avatar"
-      [ngClass] = "avatarSize()"
-    >
+      [ngClass] = "avatarSize()">
   } @else {
     <div
-      class = "flex align-items center justify-content-center unknown-user"
-      [ngClass] = "avatarSize()"
-    >
+      class = "flex align-items-center justify-content-center unknow-user"
+      [ngClass] = "avatarSize()">
       <fa-icon
         [icon] = "'user'"
         class = "text-dark"></fa-icon>
