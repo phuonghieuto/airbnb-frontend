@@ -16,6 +16,7 @@ import {PictureStepComponent} from "./step/picture-step/picture-step.component";
 import {DescriptionStepComponent} from "./step/description-step/description-step.component";
 import {PriceStepComponent} from "./step/price-step/price-step.component";
 import {PriceVO} from "../model/listing-vo.model";
+import {FooterStepComponent} from "../../shared/footer-step/footer-step.component";
 
 // Component decorator defines metadata for the component
 @Component({
@@ -23,7 +24,7 @@ import {PriceVO} from "../model/listing-vo.model";
   standalone: true,
   imports: [
     CategoryStepComponent,
-    // FooterStepComponent,
+    FooterStepComponent,
     LocationStepComponent,
     InfoStepComponent,
     PictureStepComponent,
