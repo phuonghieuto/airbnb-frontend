@@ -1,17 +1,27 @@
-<div class="my-4 flex justify-content-center align-items-center">
+<div class = "my-4 flex justify-content-center align-items-center">
   <p-autoComplete
-    [styleClass]="'autocomplete-airbnb'"
-    [panelStyleClass]="'country-panel'"
-    [ngModel]="currentLocation"
-    (onSelect)="onLocationChange($event)"
-    [suggestions]="filteredCountries"
-    (completeMethod)="search($event)"
-    [dropdown]="true"
-    [optionLabel]="formatLabel"
-    [placeholder]="placeholder()"></p-autoComplete>
+    (completeMethod) = "search($event)"
+    (onSelect) = "onLocationChange($event)"
+    [(ngModel)] = "currentLocation"
+    [dropdown] = "true"
+    [field] = "'name.common'"
+    [panelStyleClass] = "'country-panel'"
+    [placeholder] = "placeholder()"
+    [styleClass] = "'autocomplete-airbnb'"
+    [suggestions] = "filteredCountries">
+    <ng-template
+      let-country
+      pTemplate = "item">
+      <div class = "flex align-items-center gap-2">
+        <span class = "fi fi-{{country.cca2.toLowerCase()}}"></span>
+        <div>{{ country.name.common }}</div>
+      </div>
+    </ng-template>
+  </p-autoComplete>
 </div>
-<div leaflet
-     [leafletOptions]="options"
-     [leafletLayersControl]="layersControl"
-     (leafletMapReady)="onMapReady($event)"
-     class="map-location z-0"></div>
+<div
+  (leafletMapReady) = "onMapReady($event)"
+  [leafletLayersControl] = "layersControl"
+  [leafletOptions] = "options"
+  class = "map-location z-0"
+  leaflet></div>

@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
 
   toastService = inject(ToastService);
   messageService = inject(MessageService);
+  title:String = "AirBnb";
   ngOnInit(): void {
     this.initFontAwesome();
     this.listenToastService();
