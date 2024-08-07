@@ -13,34 +13,41 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 })
 export class DescriptionStepComponent {
 
+  // Define input property 'description' to hold a Description object
   description = input.required<Description>();
 
+  // Define an output event emitter for when the description object changes
   @Output()
   descriptionChange = new EventEmitter<Description>();
 
+  // Define an output event emitter for when the step validity changes
   @Output()
   stepValidityChange = new EventEmitter<boolean>();
 
+  // ViewChild to reference the form in the template
   @ViewChild("formDescription")
   formDescription: NgForm | undefined;
 
+  // Handle the event when the title is changed
   onTitleChange(newTitle: string) {
-    this.description().title = {value: newTitle};
-    this.descriptionChange.emit(this.description());
-    this.stepValidityChange.emit(this.validateForm());
+    this.description().title = {value: newTitle};  // Update the title in the description object
+    this.descriptionChange.emit(this.description());  // Emit the updated description object
+    this.stepValidityChange.emit(this.validateForm());  // Validate the form and emit the validity status
   }
 
+  // Handle the event when the description text is changed
   onDescriptionChange(newDescription: string) {
-    this.description().description = {value: newDescription};
-    this.descriptionChange.emit(this.description());
-    this.stepValidityChange.emit(this.validateForm());
+    this.description().description = {value: newDescription};  // Update the description text in the description object
+    this.descriptionChange.emit(this.description());  // Emit the updated description object
+    this.stepValidityChange.emit(this.validateForm());  // Validate the form and emit the validity status
   }
 
+  // Validate the form to check if it is valid
   private validateForm(): boolean {
-    if (this.formDescription) {
-      return this.formDescription?.valid!;
+    if (this.formDescription) { // Check if the form is defined
+      return this.formDescription?.valid!; // Return the form's validity status
     } else {
-      return false;
+      return false; // Return false if the form is not defined
     }
   }
 }
