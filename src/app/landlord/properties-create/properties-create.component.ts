@@ -96,7 +96,7 @@ export class PropertiesCreateComponent implements OnDestroy {
 
   // Initial data structure for the new listing
   newListing: NewListing = {
-    category: "AMAZING_VIEWS",
+    category: "ALL",
     infos: {
       guests: {value: 0},
       bedrooms: {value: 0},
