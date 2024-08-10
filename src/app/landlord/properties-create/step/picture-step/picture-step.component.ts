@@ -54,7 +54,7 @@ export class PictureStepComponent {
 
   // Validate the pictures array to ensure it meets the requirements
   private validatePictures() {
-    if (this.pictures().length >= 3) {  // Check if the pictures array has 5 or more items
+    if (this.pictures().length >= 5) {  // Check if the pictures array has 5 or more items
       this.stepValidityChange.emit(true);  // Emit true if valid
     } else {
       this.stepValidityChange.emit(false);  // Emit false if not valid
