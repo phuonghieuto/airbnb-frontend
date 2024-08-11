@@ -6,6 +6,7 @@ import {createPaginationOption, Page, Pagination} from "../core/model/request.mo
 import {CategoryName} from "../layout/navbar/category/category.model";
 import {environment} from "../../environments/environment";
 import {Subject} from "rxjs";
+import {Search} from "./search/search.model";
 // import {Search} from "./search/search.model";
 
 @Injectable({
@@ -82,13 +83,13 @@ export class TenantListingService {
     this.getOneByPublicId$.set(State.Builder<Listing>().forInit())
   }
 
-  // Method to search for listings based on a search object and pagination
-  // searchListing(newSearch: Search, pageRequest: Pagination): void {
-  //   const params = createPaginationOption(pageRequest);
-  //   this.http.post<Page<CardListing>>(`${environment.API_URL}/tenant-listing/search`, newSearch, {params})
-  //     .subscribe({
-  //       next: displayListingCards => this.search$.next(State.Builder<Page<CardListing>>().forSuccess(displayListingCards)),
-  //       error: err => this.search$.next(State.Builder<Page<CardListing>>().forError(err))
-  //     })
-  // }
+  //Method to search for listings based on a search object and pagination
+  searchListing(newSearch: Search, pageRequest: Pagination): void {
+    const params = createPaginationOption(pageRequest);
+    this.http.post<Page<CardListing>>(`${environment.API_URL}/tenant-listing/search`, newSearch, {params})
+      .subscribe({
+        next: displayListingCards => this.search$.next(State.Builder<Page<CardListing>>().forSuccess(displayListingCards)),
+        error: err => this.search$.next(State.Builder<Page<CardListing>>().forError(err))
+      })
+  }
 }

@@ -11,6 +11,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {CardListingComponent} from "../shared/card-listing/card-listing.component";
 // import {Search} from "../tenant/search/search.model";
 import dayjs from "dayjs";
+import {Search} from "../tenant/search/search.model";
 
 @Component({
   selector: 'app-home',
@@ -59,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.startNewSearch(); // Initiate a search when the component is initialized
+    this.startNewSearch(); // Initiate a search when the component is initialized
     this.listenToChangeCategory(); // Listen for changes in the selected category
   }
 
@@ -110,37 +111,37 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
 
-  // private startNewSearch(): void {
-  //   this.activatedRoute.queryParams.pipe(
-  //     filter(params => params['location']),
-  //   ).subscribe({
-  //     next: params => {
-  //       this.searchIsLoading = true;
-  //       this.loading = true;
-  //       const newSearch: Search = {
-  //         dates: {
-  //           startDate: dayjs(params["startDate"]).toDate(),
-  //           endDate: dayjs(params["endDate"]).toDate(),
-  //         },
-  //         infos: {
-  //           guests: {value: params['guests']},
-  //           bedrooms: {value: params['bedrooms']},
-  //           beds: {value: params['beds']},
-  //           baths: {value: params['baths']},
-  //         },
-  //         location: params['location'],
-  //       };
-  //
-  //       this.tenantListingService.searchListing(newSearch, this.pageRequest);
-  //     }
-  //   })
-  // }
+  private startNewSearch(): void {
+    this.activatedRoute.queryParams.pipe(
+      filter(params => params['location']),
+    ).subscribe({
+      next: params => {
+        this.searchIsLoading = true;
+        this.loading = true;
+        const newSearch: Search = {
+          dates: {
+            startDate: dayjs(params["startDate"]).toDate(),
+            endDate: dayjs(params["endDate"]).toDate(),
+          },
+          infos: {
+            guests: {value: params['guests']},
+            bedrooms: {value: params['bedrooms']},
+            beds: {value: params['beds']},
+            baths: {value: params['baths']},
+          },
+          location: params['location'],
+        };
 
-  // onResetSearchFilter() {
-  //   this.router.navigate(["/"], {
-  //     queryParams: {"category": this.categoryService.getCategoryByDefault().technicalName}
-  //   });
-  //   this.loading = true;
-  //   this.emptySearch = false;
-  // }
+        this.tenantListingService.searchListing(newSearch, this.pageRequest);
+      }
+    })
+  }
+
+  onResetSearchFilter() {
+    this.router.navigate(["/"], {
+      queryParams: {"category": this.categoryService.getCategoryByDefault().technicalName}
+    });
+    this.loading = true;
+    this.emptySearch = false;
+  }
 }
