@@ -4,12 +4,14 @@ import {CategoryService} from "./category.service";
 import {Category, CategoryName} from "./category.model";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter, map} from "rxjs";
+import {CarouselModule} from "primeng/carousel";
 
 @Component({
   selector: 'app-category',
   standalone: true,
   imports: [
-    FontAwesomeModule
+    FontAwesomeModule,
+    CarouselModule
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss'
@@ -17,7 +19,8 @@ import {filter, map} from "rxjs";
 export class CategoryComponent implements OnInit {
   categoryService: CategoryService = inject(CategoryService);
 
-  categories: Category[] | undefined;
+  categories: Category[] = [];
+  responsiveOptions: any[] | undefined;
 
   currentActivateCategory = this.categoryService.getCategoryByDefault()
 
@@ -29,10 +32,28 @@ export class CategoryComponent implements OnInit {
     this.listenRouter(); // Deactivate the current category initially
     this.currentActivateCategory.activated = false; // Deactivate the current category initially
     this.fetchCategories(); // Fetch the categories from the service
+
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 9,
+        numScroll: 3
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 6,
+        numScroll: 2
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 3,
+        numScroll: 1
+      }
+    ];
   }
 
   private fetchCategories(): void {
-    this.categories = this.categoryService.getCategories();
+    this.categories = this.categoryService.getCategories().filter(category => category.technicalName != "ALL");
   }
 
   // Private method to listen to router events and query parameters
