@@ -8,6 +8,8 @@ import {FooterComponent} from "./layout/footer/footer.component";
 import {ToastModule} from "primeng/toast";
 import {ToastService} from "./layout/toast.service";
 import {MessageService} from "primeng/api";
+import {AuthService} from "./core/auth/auth.service";
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -23,9 +25,12 @@ export class AppComponent implements OnInit {
   toastService = inject(ToastService);
   messageService = inject(MessageService);
   title:String = "AirBnb";
+  authService = inject(AuthService);
+
   ngOnInit(): void {
     this.initFontAwesome();
     this.listenToastService();
+    this.authService.initAuthentication();
   }
 
   private initFontAwesome(): void {

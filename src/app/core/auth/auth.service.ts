@@ -1,10 +1,11 @@
 import { computed, inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpParams, HttpStatusCode } from '@angular/common/http';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs';
+import {filter, Observable, switchMap} from 'rxjs';
 import { State } from '../model/state.model';
 import { User } from '../model/user.model';
 import { environment } from '../../../environments/environment';
+import {AuthService as Auth0Service} from "@auth0/auth0-angular";
 
 @Injectable({
   providedIn: 'root' // Service is provided at the root level, making it a singleton.
@@ -13,12 +14,15 @@ export class AuthService {
 
   http = inject(HttpClient); // Inject HttpClient for making HTTP requests.
   location = inject(Location); // Inject Location for URL manipulation.
-
+  auth0Service = inject(Auth0Service);
   notConnected = 'NOT_CONNECTED'; // Constant to represent a user who is not connected.
+
+  accessToken: string | undefined;
 
   // Signal to hold the state of the fetched user, initially indicating no user is connected.
   private fetchUser$: WritableSignal<State<User>> =
     signal(State.Builder<User>().forSuccess({ email: this.notConnected }));
+
   fetchUser = computed(() => this.fetchUser$()); // Computed signal to access the current state of fetchUser$.
 
   /**
@@ -44,19 +48,38 @@ export class AuthService {
    * Redirect the user to the OAuth2 login URL.
    */
   login(): void {
-    location.href = `${location.origin}${this.location.prepareExternalUrl('oauth2/authorization/okta')}`;
+    this.auth0Service.loginWithRedirect();
+  }
+
+  renewAccessToken(): void {
+    this.auth0Service.getAccessTokenSilently({cacheMode: "off"})
+      .subscribe(token => {
+        this.accessToken = token;
+        this.fetch(true);
+      });
+  }
+
+  initAuthentication(): void {
+    this.auth0Service.isAuthenticated$.pipe(
+      filter(isLoggedIn => isLoggedIn),
+      switchMap(() => this.auth0Service.getAccessTokenSilently()),
+    ).subscribe(token => {
+      this.accessToken = token;
+      this.fetch(false);
+    });
   }
 
   /**
    * Log the user out by calling the logout endpoint and updating the user state.
    */
   logout(): void {
-    this.http.post(`${environment.API_URL}/auth/logout`, {}).subscribe({
-      next: (response: any) => {
-        this.fetchUser$.set(State.Builder<User>().forSuccess({ email: this.notConnected })); // Update user state to not connected.
-        location.href = response.logoutUrl; // Redirect to log out URL.
+    this.auth0Service.logout(
+      {
+        logoutParams: {
+          returnTo: window.location.origin
+        }
       }
-    });
+    );
   }
 
   /**

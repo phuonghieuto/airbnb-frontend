@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Country} from "./country.model";
 import {State} from "../../../../core/model/state.model";
 import {catchError, map, Observable, of, shareReplay, tap} from "rxjs";
+import {environment} from "../../../../../environments/environment";
 
 // @Injectable decorator marks this class as a service that can be injected into other components/services
 @Injectable({
@@ -32,7 +33,7 @@ export class CountryService {
   // Method to initialize the fetching of all countries
   initFetchGetAllCountries(): void {
     // Create an observable for fetching the countries JSON file
-    this.fetchCountry$ = this.http.get<Array<Country>>("/assets/countries.json")
+    this.fetchCountry$ = this.http.get<Array<Country>>(`${environment.BACKEND_URL}/assets/countries.json`)
       .pipe(
         // Use tap operator to handle the fetched countries
         tap(countries =>
