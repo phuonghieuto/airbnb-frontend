@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://airbnb-api.phuonghieuto.com";
+const BACKEND_URL = "https://airbnb-backend-1rhy.onrender.com";
 
 export const environment = {
   BACKEND_URL: BACKEND_URL,
