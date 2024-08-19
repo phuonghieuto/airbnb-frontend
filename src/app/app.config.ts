@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
       domain: environment.AUTH0_DOMAIN,
       clientId: environment.AUTH0_CLIENT_ID,
       authorizationParams: {
-        redirect_uri: window.location.origin,
+        redirect_uri: environment.FRONTEND_URL,
         audience: `${environment.AUTH0_DOMAIN}/api/v2/`,
         scope: `openid profile read:current_user`,
       }
