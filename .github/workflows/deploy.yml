@@ -28,7 +28,7 @@ jobs:
         run: npm run build --base-href=/your-repo-name/ --no-silent
 
       - name: Configure Git
-        run:
+        run: |
             git config --global user.email "phuonghieuto@gmail.com"
             git config --global user.name "phuonghieuto"
 
