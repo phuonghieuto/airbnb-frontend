@@ -14,10 +14,10 @@ jobs:
         uses: hmarr/debug-action@v3.0.0
 
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -25,9 +25,9 @@ jobs:
         run: npm install
 
       - name: Build the Angular app
-        run: npm run build --base-href=/your-repo-name/
+        run: npm run build --base-href=/your-repo-name/ --no-silent
 
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=docs
+        run: npx angular-cli-ghpages --dir=docs --no-silent
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
