@@ -27,6 +27,11 @@ jobs:
       - name: Build the Angular app
         run: npm run build --base-href=/your-repo-name/ --no-silent
 
+      - name: Configure Git
+        run:
+            git config --global user.email "phuonghieuto@gmail.com"
+            git config --global user.name "phuonghieuto"
+
       - name: Deploy to GitHub Pages
         run: npx angular-cli-ghpages --dir=docs --no-silent
         env:
