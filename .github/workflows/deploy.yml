@@ -25,14 +25,17 @@ jobs:
         run: npm install
 
       - name: Build the Angular app
-        run: npm run build --base-href=/airbnb-frontend/ --no-silent
+        run: npm run build --base-href=/airbnb-frontend/
 
-      - name: Configure Git
-        run: |
-            git config --global user.email "phuonghieuto@gmail.com"
-            git config --global user.name "phuonghieuto"
+      - name: Clear GitHub Pages cache
+        run: rm -rf node_modules/.cache/gh-pages/
+
+      - name: Configure user email
+        run: git config --global user.email "phuonghieuto@gmail.com"
+      - name: Configure user name
+        run: git config --global user.name "phuonghieuto"
 
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=docs --no-silent
+        run: npx angular-cli-ghpages --dir=docs --no-silent --force
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
