@@ -28,6 +28,7 @@ export interface CreatedListing {
 }
 
 export interface DisplayPicture {
+  url?: string
   file?: string,
   fileContentType?: string,
   isCover?: boolean

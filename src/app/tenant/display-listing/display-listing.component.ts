@@ -9,7 +9,7 @@ import {DisplayPicture, Listing} from "../../landlord/model/listing.model";
 import {map} from "rxjs";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {AvatarComponent} from "../../layout/navbar/avatar/avatar.component";
-import {NgClass} from "@angular/common";
+import {NgClass, NgStyle} from "@angular/common";
 import {BookDateComponent} from "../book-date/book-date.component";
 
 @Component({
@@ -19,7 +19,8 @@ import {BookDateComponent} from "../book-date/book-date.component";
     FaIconComponent,
     AvatarComponent,
     NgClass,
-    BookDateComponent
+    BookDateComponent,
+    NgStyle
   ],
   templateUrl: './display-listing.component.html',
   styleUrl: './display-listing.component.scss'
@@ -105,4 +106,10 @@ export class DisplayListingComponent {
     }
     return pictures;
   }
+
+  getGridRows(picturesLength: number): string {
+    const numberOfRows = 6 + 2*Math.ceil((picturesLength-5)/4);
+    return `repeat(${numberOfRows}, 5vw)`;
+  }
+
 }

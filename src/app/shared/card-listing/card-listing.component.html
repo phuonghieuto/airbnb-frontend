@@ -1,7 +1,7 @@
 <div class="card relative cursor-pointer">
   <div (click)="onClickCard(cardMode() === 'booking' ? bookingListing?.listingPublicId! : cardListing?.publicId!)">
     <div class="border-1 border-transparent border-round-3xl bg-cover bg-center bg-no-repeat h-24rem w-full"
-         [style.background-image]="'url(' + 'data:' + listing().cover.fileContentType + ';base64,' + listing().cover.file + ')'">
+         [style.background-image]="'url(' + listing().cover.url + ')'">
     </div>
     <div class="mt-2 font-bold">{{ listing().location }}</div>
 
